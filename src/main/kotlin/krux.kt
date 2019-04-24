@@ -7,8 +7,7 @@ interface UpdateContext {
 }
 
 interface ReactiveContext {
-    fun <T> dep(observable: Observable<T>): T
-    val updateContext: UpdateContext
+    fun <T> dep(observable: Observable<T>)
 }
 
 interface BindBuilder<T> {
