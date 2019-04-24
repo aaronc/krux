@@ -8,7 +8,7 @@ interface Disposable {
 
 class Binding<T>(private val reaction: Reaction<T>, private val setter: (T) -> Unit, private val updateContext: UpdateContext): Disposable {
     private var sub: Subscription? = null
-    private var value = reaction.valueNonReactive
+    private var value = reaction()
 
     init {
         setter(value)
@@ -23,7 +23,7 @@ class Binding<T>(private val reaction: Reaction<T>, private val setter: (T) -> U
         sub?.unsubscribe()
         updateContext.scheduleUpdate {
             subscribe()
-            val newValue = reaction.valueNonReactive
+            val newValue = reaction()
             if (value !== newValue) {
                 value = newValue
                 setter(value)
@@ -38,8 +38,13 @@ class Binding<T>(private val reaction: Reaction<T>, private val setter: (T) -> U
 }
 
 class Reaction<T>(private val f: ReactiveContext.() -> T): Observable<T> {
-    override val ReactiveContext.value: T
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+    override fun invoke(): T {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun ReactiveContext.invoke(): T {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     private fun compute(): T {
         TODO()
